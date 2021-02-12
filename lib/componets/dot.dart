@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 
 class Dot extends StatelessWidget {
-  const Dot({
+   Dot({
     @required this.status,
+    this.blockColor,
   });
 
   final bool status;
-
+  Color blockColor = Colors.green;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -20,6 +21,7 @@ class Dot extends StatelessWidget {
           ? Icon(
               Icons.close,
               size: 20,
+              color: blockColor,
             )
           : SizedBox(
               height: 20,

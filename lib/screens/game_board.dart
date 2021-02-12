@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pooyam_vettu/componets/dot.dart';
+import 'package:pooyam_vettu/constants/level.dart';
 import 'package:pooyam_vettu/logic/block.dart';
 import 'dart:collection';
 
@@ -15,9 +16,9 @@ class GameBoard extends StatefulWidget {
 class _GameBoardState extends State<GameBoard> {
   @override
   Set<Block> allblocks = HashSet();
-  int level = 5;
-  static User user1 = User(name: 'Sarath');
-  static User user2 = User(name: 'Syam');
+
+  static User user1 = User(name: 'Sarath', color: Colors.red);
+  static User user2 = User(name: 'Syam', color: Colors.blue);
   var currentUser = user1;
   void removeBlock() {
     Block element = Block(x: 10, y: 10);
@@ -25,15 +26,13 @@ class _GameBoardState extends State<GameBoard> {
   }
 
   void showAllBlocks() {
-    allblocks.forEach((block) {
-      print(block.values);
-    });
+    allblocks.forEach((block) {});
   }
 
   bool isElementPresent(int x, int y) {
     var element =
         allblocks.where((element) => element.x == x && element.y == y);
-    print(element);
+
     if (element.isNotEmpty) {
       return true;
     } else {
@@ -44,7 +43,7 @@ class _GameBoardState extends State<GameBoard> {
   @override
   void initState() {
     super.initState();
-    for (var x = 0; x <= level; x++) {
+    for (var x = 0; x < level; x++) {
       for (var y = 0; y <= x; y++) {
         allblocks.add(Block(x: x, y: y));
       }
@@ -73,10 +72,13 @@ class _GameBoardState extends State<GameBoard> {
                           allblocks.removeWhere(
                               (element) => element.x == i && element.y == j);
                           currentUser.addBlock(i, j);
+                          currentUser.calculateXMark();
+                          currentUser.calculateYMark();
                         });
                       },
                       child: Dot(
                         status: isElementPresent(i, j),
+                       // blockColor: currentUser.getColor(i, j),
                       ),
                     )
                 ],
@@ -96,13 +98,13 @@ class _GameBoardState extends State<GameBoard> {
                     Column(
                       children: [
                         Text(user1.name),
-                        Text('Player 2 : 15'),
+                        Text('Player 2 : ${user1.mark}'),
                       ],
                     ),
                     Column(
                       children: [
                         Text(user2.name),
-                        Text('Player 2 : 15'),
+                        Text('Player 2 : ${user2.mark}'),
                       ],
                     ),
                   ]),
