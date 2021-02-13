@@ -9,6 +9,16 @@ class User {
   List allblocks = List();
   User({@required this.name, @required this.color});
   int mark = 0;
+  int xmark = 0;
+  int ymark = 0;
+
+  int getMark() {
+    calculateXMark();
+    calculateYMark();
+    mark = xmark + ymark;
+    return mark;
+  }
+
   void addBlock(int x, int y) {
     calculateXMark();
     calculateYMark();
@@ -16,64 +26,65 @@ class User {
     print(allblocks);
   }
 
-  Color getColor(int x, int y) {
-    var smallList=[x,y];
-    int index = allblocks.firstWhere((smallList) => smallList == [x, y]);
-    if (index > 0) {
-      return color;
-    } else{
-      return Colors.black;
+  bool isItem(int x, int y) {
+    var result =
+        allblocks.where((smallList) => smallList[0] == x && smallList[1] == y);
+    if (result.length>0) {
+      return false;
+    } else {
+      return true;
     }
   }
 
   void calculateXMark() {
+    xmark = 0;
     for (var item in allblocks) {
       if (item[0] == level - 1) {
-        print(item);
+        // print(item);
         int x = item[1];
         // print(x);
 
         int sum = 0;
         for (var i in allblocks) {
           if (i[1] == x) {
-            print(i);
+            //   print(i);
             sum += 1;
           }
         }
-        print(sum);
-        print(x);
-        print(" ");
+        //  print(sum);
+        // print(x);
+        // print(" ");
 
         if ((sum + x) == level) {
-          mark = mark + sum;
+          xmark = xmark + sum;
         }
       }
     }
-    print('mark is $mark');
   }
 
   //calculateXMark();
   void calculateYMark() {
+    ymark = 0;
     for (var item in allblocks) {
       if (item[1] == 0) {
         int x = item[0];
         int sum = 0;
         for (var i in allblocks) {
           if (i[0] == x) {
-            print(i);
+            //  print(i);
             sum += 1;
           }
         }
-        print('temp sum is $sum');
+        // print('temp sum is $sum');
 
-        print(" ");
-        print(x);
+        // print(" ");
+        //  print(x);
         if (sum == x + 1) {
-          mark = mark + sum;
+          ymark = ymark + sum;
         }
       }
     }
-    print('mark is $mark');
+    // print('mark is $mark');
   }
 
   //calculateYMark();

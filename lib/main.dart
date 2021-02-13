@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:pooyam_vettu/screens/game_board.dart';
+import 'package:pooyam_vettu/screens/gameconfig.dart';
+import 'package:pooyam_vettu/screens/playernames.dart';
+import 'package:pooyam_vettu/screens/splash.dart';
 
 void main() {
   runApp(MyApp());
@@ -11,12 +15,17 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.yellow,
         visualDensity: VisualDensity.adaptivePlatformDensity,
+        textTheme: GoogleFonts.amitaTextTheme(),
       ),
-      initialRoute: GameBoard.id,
+      initialRoute: SplashScreen.id,
+      color: Colors.black,
       routes: {
         GameBoard.id: (context) => GameBoard(),
+        SplashScreen.id: (context) => SplashScreen(),
+        GameConfig.id: (context) => GameConfig(),
+        PlayerList.id: (context) => PlayerList(),
       },
     );
   }

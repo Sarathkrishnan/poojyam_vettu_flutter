@@ -3,16 +3,22 @@ import 'package:flutter/material.dart';
 class Dot extends StatelessWidget {
    Dot({
     @required this.status,
-    this.blockColor,
+   
   });
 
   final bool status;
-  Color blockColor = Colors.green;
+  
   @override
   Widget build(BuildContext context) {
+    double deviceWidth=MediaQuery.of(context).size.width;
+    double deviceHeight=MediaQuery.of(context).size.height;
+
     return Container(
-      padding: EdgeInsets.all(5),
-      margin: EdgeInsets.all(5),
+      width: deviceWidth*0.08,
+      height: deviceWidth*0.08,
+
+      padding: EdgeInsets.all(2),
+      margin: EdgeInsets.all(2),
       decoration: BoxDecoration(
         shape: BoxShape.circle,
         color: Colors.yellow,
@@ -21,7 +27,7 @@ class Dot extends StatelessWidget {
           ? Icon(
               Icons.close,
               size: 20,
-              color: blockColor,
+              color: Colors.black,
             )
           : SizedBox(
               height: 20,
