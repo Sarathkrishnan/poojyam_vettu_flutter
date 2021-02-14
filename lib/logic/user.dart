@@ -11,6 +11,9 @@ class User {
   int mark = 0;
   int xmark = 0;
   int ymark = 0;
+  List restrictedX=[];
+  List restrictedY=[];
+  
 
   int getMark() {
     calculateXMark();
@@ -46,6 +49,7 @@ class User {
 
         int sum = 0;
         for (var i in allblocks) {
+
           if (i[1] == x) {
             //   print(i);
             sum += 1;
@@ -54,7 +58,7 @@ class User {
         //  print(sum);
         // print(x);
         // print(" ");
-
+        
         if ((sum + x) == level) {
           xmark = xmark + sum;
         }
