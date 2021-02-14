@@ -81,7 +81,7 @@ class _GameConfigState extends State<GameConfig> {
                 splashColor: kYellow,
                 color: kbgwhite,
                 onPressed: () {
-                  print(numberOfPlayers);
+                 // print(numberOfPlayers);
                   Navigator.push(
                     context,
                     MaterialPageRoute(

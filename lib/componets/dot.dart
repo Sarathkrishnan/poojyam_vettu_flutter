@@ -1,27 +1,26 @@
 import 'package:flutter/material.dart';
 
 class Dot extends StatelessWidget {
-   Dot({
+  Dot({
     @required this.status,
-   
+    @required this.isclosed,
   });
 
   final bool status;
-  
+  final bool isclosed;
   @override
   Widget build(BuildContext context) {
-    double deviceWidth=MediaQuery.of(context).size.width;
-    double deviceHeight=MediaQuery.of(context).size.height;
+    double deviceWidth = MediaQuery.of(context).size.width;
+    double deviceHeight = MediaQuery.of(context).size.height;
 
     return Container(
-      width: deviceWidth*0.08,
-      height: deviceWidth*0.08,
-
+      width: deviceWidth * 0.08,
+      height: deviceWidth * 0.08,
       padding: EdgeInsets.all(2),
       margin: EdgeInsets.all(2),
       decoration: BoxDecoration(
         shape: BoxShape.circle,
-        color: Colors.yellow,
+        color: isclosed ? Colors.green : Colors.yellow,
       ),
       child: !status
           ? Icon(

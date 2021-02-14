@@ -17,8 +17,9 @@ class _GameBoardState extends State<GameBoard> {
   @override
   List allblocks = List();
   List removedBlocks = List();
-
+  List<int> userMark = List();
   int currentUser = 0;
+  User user = User();
   void removeBlock(int x, int y) {
     allblocks.removeWhere((element) => element[0] == x && element[1] == y);
   }
@@ -42,6 +43,9 @@ class _GameBoardState extends State<GameBoard> {
         allblocks.add([x, y]);
       }
     }
+    for (var i = 0; i < widget.userNames.length; i++) {
+      userMark.add(0);
+    }
   }
 
   Widget build(BuildContext context) {
@@ -64,42 +68,43 @@ class _GameBoardState extends State<GameBoard> {
                 ),
                 child: Column(
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text('Time: 2.00'),
-                        Row(
-                          children: [
-                            Container(
-                              width: 40,
-                              height: 40,
-                              child: IconButton(
-                                onPressed: () {},
-                                icon: Icon(Icons.undo),
-                              ),
-                              decoration: BoxDecoration(
-                                color: kYellow,
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                            ),
-                            SizedBox(width: 20),
-                            Container(
-                              width: 40,
-                              height: 40,
-                              child: IconButton(
-                                onPressed: () {},
-                                icon: Icon(Icons.redo),
-                              ),
-                              decoration: BoxDecoration(
-                                color: kYellow,
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                            )
-                          ],
-                        )
-                      ],
-                    ),
-                    SizedBox(height:10),
+                    // Row(
+                    //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    //   children: [
+                    //     Text('Time: 2.00'),
+                    //     Row(
+                    //       children: [
+                    //         Container(
+                    //           width: 40,
+                    //           height: 40,
+                    //           child: IconButton(
+                    //             onPressed: () {},
+                    //             icon: Icon(Icons.undo),
+                    //           ),
+                    //           decoration: BoxDecoration(
+                    //             color: kYellow,
+                    //             borderRadius: BorderRadius.circular(10),
+                    //           ),
+                    //         ),
+                    //         SizedBox(width: 20),
+                    //         Container(
+                    //           width: 40,
+                    //           height: 40,
+                    //           child: IconButton(
+                    //             onPressed: () {},
+                    //             icon: Icon(Icons.redo),
+                    //           ),
+                    //           decoration: BoxDecoration(
+                    //             color: kYellow,
+                    //             borderRadius: BorderRadius.circular(10),
+                    //           ),
+                    //         )
+                    //       ],
+                    //     )
+                    //   ],
+                    // ),
+
+                    SizedBox(height: 10),
                     Expanded(
                       child: Container(
                         alignment: Alignment.center,
@@ -118,6 +123,11 @@ class _GameBoardState extends State<GameBoard> {
                                   for (var j = 0; j <= i; j++)
                                     GestureDetector(
                                       onTap: () {
+                                        removeBlock(i, j);
+                                        user.addBlock(i, j);
+
+                                        userMark[currentUser] += user.getMark();
+                                        user.mark = 0;
                                         setState(() {
                                           if (currentUser <
                                               widget.userNames.length - 1) {
@@ -125,14 +135,12 @@ class _GameBoardState extends State<GameBoard> {
                                           } else {
                                             currentUser = 0;
                                           }
-                                          
                                         });
-                                        print(currentUser);
-
-                                        
+                                        // print(currentUser);
                                       },
                                       child: Dot(
                                         status: isElementPresent(i, j),
+                                        isclosed: user.isPreset(j, i),
                                       ),
                                     )
                                 ],
@@ -143,13 +151,18 @@ class _GameBoardState extends State<GameBoard> {
                     ),
                     Row(
                       children: [
-                        Text('Current user : ${widget.userNames[currentUser]}')
+                        InkWell(
+                            onTap: () {
+                              print(user.restrictedX);
+                              //print(user.restrictedY);
+                            },
+                            child: Text(
+                                'Current user : ${widget.userNames[currentUser]}'))
                       ],
                     ),
                     Container(
                       width: double.infinity,
                       padding: EdgeInsets.all(10),
-
                       decoration: BoxDecoration(
                           color: kbgwhite,
                           borderRadius: BorderRadius.circular(10)),
@@ -165,12 +178,13 @@ class _GameBoardState extends State<GameBoard> {
                                     (currentUser == i) ? kYellow : Colors.white,
                                 borderRadius: BorderRadius.circular(10),
                               ),
-                              child: Text('${widget.userNames[i]} : 20'),
+                              child: Text(
+                                  '${widget.userNames[i]} : ${userMark[i]}'),
                             )
                         ],
                       ),
                     ),
-                    SizedBox(height:10),
+                    SizedBox(height: 10),
                   ],
                 ),
               ),

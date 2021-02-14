@@ -16,7 +16,7 @@ class _PlayerListState extends State<PlayerList> {
     setState(() {
       for (var i = 0; i < widget.players; i++)
         textFields.add(TextEditingController(text: 'Player $i'));
-        print(1);
+      //  print(1);
     });
   }
 
