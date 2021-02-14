@@ -53,143 +53,90 @@ class _GameBoardState extends State<GameBoard> {
     double deviceHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      backgroundColor: Colors.black,
       body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              Container(
+        child: Column(
+          children: [
+            SizedBox(height: 10),
+            Expanded(
+              child: Container(
+                alignment: Alignment.center,
                 padding: EdgeInsets.all(10),
-                height: deviceHeight,
-                //width: deviceWidth,
                 decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(10),
-                ),
+                    color: kbgwhite, borderRadius: BorderRadius.circular(20)),
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    // Row(
-                    //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    //   children: [
-                    //     Text('Time: 2.00'),
-                    //     Row(
-                    //       children: [
-                    //         Container(
-                    //           width: 40,
-                    //           height: 40,
-                    //           child: IconButton(
-                    //             onPressed: () {},
-                    //             icon: Icon(Icons.undo),
-                    //           ),
-                    //           decoration: BoxDecoration(
-                    //             color: kYellow,
-                    //             borderRadius: BorderRadius.circular(10),
-                    //           ),
-                    //         ),
-                    //         SizedBox(width: 20),
-                    //         Container(
-                    //           width: 40,
-                    //           height: 40,
-                    //           child: IconButton(
-                    //             onPressed: () {},
-                    //             icon: Icon(Icons.redo),
-                    //           ),
-                    //           decoration: BoxDecoration(
-                    //             color: kYellow,
-                    //             borderRadius: BorderRadius.circular(10),
-                    //           ),
-                    //         )
-                    //       ],
-                    //     )
-                    //   ],
-                    // ),
-
-                    SizedBox(height: 10),
-                    Expanded(
-                      child: Container(
-                        alignment: Alignment.center,
-                        padding: EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                            color: kbgwhite,
-                            borderRadius: BorderRadius.circular(20)),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            for (var i = 0; i < level; i++)
-                              Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  for (var j = 0; j <= i; j++)
-                                    GestureDetector(
-                                      onTap: () {
-                                        removeBlock(i, j);
-                                        user.addBlock(i, j);
-
-                                        userMark[currentUser] += user.getMark();
-                                        user.mark = 0;
-                                        setState(() {
-                                          if (currentUser <
-                                              widget.userNames.length - 1) {
-                                            currentUser++;
-                                          } else {
-                                            currentUser = 0;
-                                          }
-                                        });
-                                        // print(currentUser);
-                                      },
-                                      child: Dot(
-                                        status: isElementPresent(i, j),
-                                        isclosed: user.isPreset(j, i),
-                                      ),
-                                    )
-                                ],
-                              ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    Row(
-                      children: [
-                        InkWell(
-                            onTap: () {
-                              print(user.restrictedX);
-                              //print(user.restrictedY);
-                            },
-                            child: Text(
-                                'Current user : ${widget.userNames[currentUser]}'))
-                      ],
-                    ),
-                    Container(
-                      width: double.infinity,
-                      padding: EdgeInsets.all(10),
-                      decoration: BoxDecoration(
-                          color: kbgwhite,
-                          borderRadius: BorderRadius.circular(10)),
-                      child: Wrap(
-                        alignment: WrapAlignment.spaceEvenly,
+                    for (var i = 0; i < level; i++)
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          for (var i = 0; i < widget.userNames.length; i++)
-                            Container(
-                              margin: EdgeInsets.all(10),
-                              padding: EdgeInsets.all(10),
-                              decoration: BoxDecoration(
-                                color:
-                                    (currentUser == i) ? kYellow : Colors.white,
-                                borderRadius: BorderRadius.circular(10),
+                          for (var j = 0; j <= i; j++)
+                            GestureDetector(
+                              onTap: () {
+                                if (isElementPresent(i, j)) {
+                                  removeBlock(i, j);
+                                  user.addBlock(i, j);
+
+                                  userMark[currentUser] += user.getMark();
+                                  user.mark = 0;
+                                  setState(() {
+                                    if (currentUser <
+                                        widget.userNames.length - 1) {
+                                      currentUser++;
+                                    } else {
+                                      currentUser = 0;
+                                    }
+                                  });
+                                }
+                                // print(currentUser);
+                              },
+                              child: Dot(
+                                status: isElementPresent(i, j),
+                                isclosed: user.isPreset(j, i),
                               ),
-                              child: Text(
-                                  '${widget.userNames[i]} : ${userMark[i]}'),
                             )
                         ],
                       ),
-                    ),
-                    SizedBox(height: 10),
                   ],
                 ),
               ),
-            ],
-          ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                InkWell(
+                    onTap: () {
+                      print(user.restrictedX);
+                      //print(user.restrictedY);
+                    },
+                    child:
+                        Text('Current user : ${widget.userNames[currentUser]}'))
+              ],
+            ),
+            Container(
+              width: double.infinity,
+              padding: EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                  color: kbgwhite, borderRadius: BorderRadius.circular(10)),
+              child: Wrap(
+                alignment: WrapAlignment.spaceEvenly,
+                children: [
+                  for (var i = 0; i < widget.userNames.length; i++)
+                    Container(
+                      margin: EdgeInsets.all(10),
+                      padding: EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                        color: (currentUser == i) ? kYellow : Colors.white,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Text('${widget.userNames[i]} : ${userMark[i]}'),
+                    )
+                ],
+              ),
+            ),
+            SizedBox(height: 10),
+          ],
         ),
       ),
     );

@@ -13,7 +13,10 @@ class _GameConfigState extends State<GameConfig> {
   int numberOfPlayers = 2;
   void increasePlayer() {
     setState(() {
-      numberOfPlayers++;
+      if (numberOfPlayers<8) {
+        numberOfPlayers++;
+      }
+      
     });
   }
 

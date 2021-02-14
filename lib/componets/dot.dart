@@ -14,8 +14,9 @@ class Dot extends StatelessWidget {
     double deviceHeight = MediaQuery.of(context).size.height;
 
     return Container(
-      width: deviceWidth * 0.08,
-      height: deviceWidth * 0.08,
+      alignment: Alignment.center,
+      width:deviceWidth*0.08,
+      height: deviceWidth*0.08,
       padding: EdgeInsets.all(2),
       margin: EdgeInsets.all(2),
       decoration: BoxDecoration(

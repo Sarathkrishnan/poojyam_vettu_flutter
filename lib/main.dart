@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pooyam_vettu/screens/game_board.dart';
 import 'package:pooyam_vettu/screens/gameconfig.dart';
@@ -6,7 +7,9 @@ import 'package:pooyam_vettu/screens/playernames.dart';
 import 'package:pooyam_vettu/screens/splash.dart';
 
 void main() {
-  runApp(MyApp());
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
+      .then((value) => runApp(MyApp()));
 }
 
 class MyApp extends StatelessWidget {

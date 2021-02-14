@@ -28,28 +28,26 @@ class _PlayerListState extends State<PlayerList> {
 
   @override
   Widget build(BuildContext context) {
-    double deviceWidth = MediaQuery.of(context).size.width;
-    double deviceHeight = MediaQuery.of(context).size.height;
-
     return Scaffold(
-      backgroundColor: Colors.black,
       body: SafeArea(
-        child: SingleChildScrollView(
+        child: 
+    Stack(
+      children: [
+            SingleChildScrollView(
           child: Container(
-            width: deviceWidth,
-            height: deviceHeight,
             decoration: BoxDecoration(
                 color: Colors.white, borderRadius: BorderRadius.circular(10)),
             child: Padding(
               padding: const EdgeInsets.all(20.0),
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Expanded(child: SizedBox()),
+                  // Expanded(child: SizedBox()),
                   Text(
                     'Player Names',
                     style: TextStyle(fontSize: 18),
                   ),
-                  Expanded(child: SizedBox()),
+                  // Expanded(child: SizedBox()),
                   for (var i = 0; i < widget.players; i++)
                     Padding(
                       padding: const EdgeInsets.all(8.0),
@@ -70,44 +68,55 @@ class _PlayerListState extends State<PlayerList> {
                         ),
                       ),
                     ),
-                  Expanded(flex: 2, child: SizedBox()),
-                  FlatButton(
-                    splashColor: kYellow,
-                    color: kbgwhite,
-                    onPressed: () {
-                      List<String> userName=List();
-                      for (var i = 0; i < widget.players; i++) {
-                        
-                        userName.add(textFields[i].text);
-                      }
-                      Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => GameBoard(
-                        userNames: userName,
-                      ),
-                    ),
-                  );
-                      
-                    },
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20)),
-                    child: Container(
-                      padding: EdgeInsets.all(20),
-                      alignment: Alignment.center,
-                      width: double.infinity,
-                      child: Text(
-                        'Start',
-                        style: TextStyle(fontSize: 18),
-                      ),
-                    ),
-                  ),
+                 SizedBox(
+                   height: 100,
+                 )
                 ],
               ),
             ),
           ),
         ),
-      ),
+               Align(
+                    alignment: Alignment.bottomCenter,
+                    child: Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: FlatButton(
+                        splashColor: kYellow,
+                        color: kbgwhite,
+                        onPressed: () {
+                          List<String> userName = List();
+                          for (var i = 0; i < widget.players; i++) {
+                            userName.add(textFields[i].text);
+                          }
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => GameBoard(
+                                userNames: userName,
+                              ),
+                            ),
+                          );
+                        },
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20)),
+                        child: Container(
+                          
+                          height: 100,
+                          padding: EdgeInsets.all(20),
+                          alignment: Alignment.center,
+                          width: double.infinity,
+                          child: Text(
+                            'Start',
+                            style: TextStyle(fontSize: 18),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+           
+    
+      ],
+    )  ),
     );
   }
 }
