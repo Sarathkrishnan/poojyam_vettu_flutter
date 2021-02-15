@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pooyam_vettu/constants/constants.dart';
 import 'package:pooyam_vettu/screens/gameconfig.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -29,12 +30,14 @@ class _SplashScreenState extends State<SplashScreen> {
           width: deviceWidth,
           height: deviceHeight,
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10), color: Colors.yellow),
+              borderRadius: BorderRadius.circular(10), color: kDark),
           child: Center(
-            child: Image.asset(
-              'images/logo.png',
-              height: deviceWidth * 0.3,
-            ),
+            child: Text("The Dot Game",
+            style:TextStyle(
+              color: Colors.white,
+              fontSize: 20.0, 
+            )
+            )
           ),
         ),
       ),

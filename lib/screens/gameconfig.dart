@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pooyam_vettu/constants/constants.dart';
 import 'package:pooyam_vettu/screens/playernames.dart';
+import 'package:assets_audio_player/assets_audio_player.dart';
 
 class GameConfig extends StatefulWidget {
   static String id = 'GameConfig';
@@ -11,12 +12,13 @@ class GameConfig extends StatefulWidget {
 
 class _GameConfigState extends State<GameConfig> {
   int numberOfPlayers = 2;
+  bool bgmStatus = true;
+  final assetsAudioPlayer = AssetsAudioPlayer();
   void increasePlayer() {
     setState(() {
-      if (numberOfPlayers<8) {
+      if (numberOfPlayers < 8) {
         numberOfPlayers++;
       }
-      
     });
   }
 
@@ -28,9 +30,27 @@ class _GameConfigState extends State<GameConfig> {
     });
   }
 
+  void pauseMusic() {
+    assetsAudioPlayer.playOrPause();
+    bgmStatus = !bgmStatus;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    assetsAudioPlayer.open(
+      Audio("music/bgm.mp3"),
+      //autoPlay: true,
+      showNotification: true,
+      loopMode: LoopMode.single,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: kDark,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(30.0),
@@ -38,10 +58,34 @@ class _GameConfigState extends State<GameConfig> {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
+              Align(
+                alignment: Alignment.centerRight,
+                child: RawMaterialButton(
+                  onPressed: () {
+                    setState(() {
+                      pauseMusic();
+                    });
+                  },
+                  elevation: 5.0,
+                  fillColor: kGrey,
+                  child: Icon( bgmStatus?
+                    Icons.music_note:Icons.music_off,
+                    color:Colors.white,
+                    size: 20.0,
+                  ),
+                  padding: EdgeInsets.all(15.0),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                ),
+              ),
               Expanded(child: SizedBox()),
               Text(
                 'Number of players',
-                style: TextStyle(fontSize: 18),
+                style: TextStyle(
+                  fontSize: 18,
+                  color: Colors.white,
+                ),
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -50,45 +94,54 @@ class _GameConfigState extends State<GameConfig> {
                       function: decreasePlayer, icon: Icons.remove),
                   Text(
                     numberOfPlayers.toString(),
-                    style: TextStyle(fontSize: 18),
+                    style: TextStyle(
+                      fontSize: 18,
+                      color: Colors.white,
+                    ),
                   ),
                   PlayerEditButton(function: increasePlayer, icon: Icons.add),
                 ],
               ),
               Expanded(child: SizedBox()),
-              Text(
-                'Select Gameboard',
-                style: TextStyle(fontSize: 18),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  InkWell(
-                    onTap: () {},
-                    child: Container(
-                        height: 100,
-                        width: 100,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          color: kYellow,
-                        ),
-                        child: Icon(
-                          Icons.change_history_rounded,
-                          size: 50.0,
-                        )),
-                  ),
-                ],
-              ),
+              // Text(
+              //   'Select Gameboard',
+              //   style: TextStyle(fontSize: 18,
+              //   color: Colors.white,),
+              // ),
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.center,
+              //   children: [
+              //     InkWell(
+              //       onTap: () {},
+              //       child: Container(
+              //           height: 100,
+              //           width: 100,
+              //           decoration: BoxDecoration(
+              //             borderRadius: BorderRadius.circular(20),
+              //             color: kBlue,
+              //           ),
+              //           child: Icon(
+              //             Icons.change_history_rounded,
+              //             size: 50.0,
+              //           )),
+              //     ),
+              //   ],
+              // ),
               Expanded(child: SizedBox()),
-              FlatButton(
+              RawMaterialButton(
                 splashColor: kYellow,
-                color: kbgwhite,
+                fillColor: kBlue,
+                elevation: 5.0,
+                //color: kBlue,
                 onPressed: () {
-                 // print(numberOfPlayers);
+                  // print(numberOfPlayers);
+
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => PlayerList(players: numberOfPlayers,),
+                      builder: (context) => PlayerList(
+                        players: numberOfPlayers,
+                      ),
                     ),
                   );
                 },
@@ -100,7 +153,10 @@ class _GameConfigState extends State<GameConfig> {
                   width: double.infinity,
                   child: Text(
                     'Start',
-                    style: TextStyle(fontSize: 18),
+                    style: TextStyle(
+                      fontSize: 18,
+                      color: Colors.white,
+                    ),
                   ),
                 ),
               ),
@@ -122,13 +178,22 @@ class PlayerEditButton extends StatelessWidget {
       onTap: function,
       child: Container(
         decoration: BoxDecoration(
-          color: Colors.yellow,
+          color: kBlue,
           borderRadius: BorderRadius.circular(10),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black12,
+              blurRadius: 10.0,
+              spreadRadius: 5,
+              offset: Offset(5.0, 5.0), // shadow direction: bottom right
+            )
+          ],
         ),
         height: 50,
         width: 50,
         child: Icon(
           icon,
+          color: Colors.white,
         ),
       ),
     );

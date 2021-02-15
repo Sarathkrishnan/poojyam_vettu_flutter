@@ -5,6 +5,7 @@ import 'package:pooyam_vettu/screens/game_board.dart';
 import 'package:pooyam_vettu/screens/gameconfig.dart';
 import 'package:pooyam_vettu/screens/playernames.dart';
 import 'package:pooyam_vettu/screens/splash.dart';
+import 'package:pooyam_vettu/screens/winner.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -29,6 +30,8 @@ class MyApp extends StatelessWidget {
         SplashScreen.id: (context) => SplashScreen(),
         GameConfig.id: (context) => GameConfig(),
         PlayerList.id: (context) => PlayerList(),
+        Winner.id: (context) => Winner(),
+
       },
     );
   }
