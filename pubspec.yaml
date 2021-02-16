@@ -29,7 +29,6 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.0
   google_fonts: ^1.1.2
-  assets_audio_player: ^2.0.13+8
   lottie: ^0.7.0+1
   
 dev_dependencies:
@@ -51,7 +50,6 @@ flutter:
   assets:
     - images/
     - google_fonts/
-    - music/
     - lottie/
   #   - images/a_dot_ham.jpeg
 

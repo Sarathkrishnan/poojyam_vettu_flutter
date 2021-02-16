@@ -32,13 +32,27 @@ class _SplashScreenState extends State<SplashScreen> {
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10), color: kDark),
           child: Center(
-            child: Text("The Dot Game",
-            style:TextStyle(
-              color: Colors.white,
-              fontSize: 20.0, 
-            )
-            )
-          ),
+              child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Material(
+                elevation: 5.0,
+                shadowColor: Colors.black12,
+                borderRadius: BorderRadius.circular(15),
+                color: Colors.black12,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Image.asset('images/logo.png'),
+                ),
+              ),
+              Text("The Dot Game",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20.0,
+                  )),
+              SizedBox(height: 100),
+            ],
+          )),
         ),
       ),
     );

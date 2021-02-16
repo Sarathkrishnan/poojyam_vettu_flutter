@@ -94,6 +94,7 @@ class _PlayerListState extends State<PlayerList> {
                           for (var i = 0; i < widget.players; i++) {
                             userName.add(textFields[i].text);
                           }
+                          Navigator.pop(context);
                           Navigator.push(
                             context,
                             MaterialPageRoute(

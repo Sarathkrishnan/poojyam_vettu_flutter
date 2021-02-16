@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pooyam_vettu/constants/constants.dart';
 
 class Dot extends StatelessWidget {
   Dot({
@@ -11,7 +12,7 @@ class Dot extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double deviceWidth = MediaQuery.of(context).size.width;
-    double deviceHeight = MediaQuery.of(context).size.height;
+    
 
     return Container(
       alignment: Alignment.center,
@@ -21,7 +22,7 @@ class Dot extends StatelessWidget {
       margin: EdgeInsets.all(2),
       decoration: BoxDecoration(
         shape: BoxShape.circle,
-        color: isclosed ? Colors.green : Colors.yellow,
+        color: isclosed ? kBlue : Colors.yellow,
       ),
       child: !status
           ? Icon(

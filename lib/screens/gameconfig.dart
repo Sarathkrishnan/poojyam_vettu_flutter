@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pooyam_vettu/constants/constants.dart';
 import 'package:pooyam_vettu/screens/playernames.dart';
-import 'package:assets_audio_player/assets_audio_player.dart';
+
 
 class GameConfig extends StatefulWidget {
   static String id = 'GameConfig';
@@ -13,7 +13,7 @@ class GameConfig extends StatefulWidget {
 class _GameConfigState extends State<GameConfig> {
   int numberOfPlayers = 2;
   bool bgmStatus = true;
-  final assetsAudioPlayer = AssetsAudioPlayer();
+ 
   void increasePlayer() {
     setState(() {
       if (numberOfPlayers < 8) {
@@ -30,21 +30,13 @@ class _GameConfigState extends State<GameConfig> {
     });
   }
 
-  void pauseMusic() {
-    assetsAudioPlayer.playOrPause();
-    bgmStatus = !bgmStatus;
-  }
+ 
 
   @override
   void initState() {
     super.initState();
 
-    assetsAudioPlayer.open(
-      Audio("music/bgm.mp3"),
-      //autoPlay: true,
-      showNotification: true,
-      loopMode: LoopMode.single,
-    );
+    
   }
 
   @override
@@ -58,27 +50,27 @@ class _GameConfigState extends State<GameConfig> {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Align(
-                alignment: Alignment.centerRight,
-                child: RawMaterialButton(
-                  onPressed: () {
-                    setState(() {
-                      pauseMusic();
-                    });
-                  },
-                  elevation: 5.0,
-                  fillColor: kGrey,
-                  child: Icon( bgmStatus?
-                    Icons.music_note:Icons.music_off,
-                    color:Colors.white,
-                    size: 20.0,
-                  ),
-                  padding: EdgeInsets.all(15.0),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                ),
-              ),
+              // Align(
+              //   alignment: Alignment.centerRight,
+              //   child: RawMaterialButton(
+              //     onPressed: () {
+              //       setState(() {
+              //         pauseMusic();
+              //       });
+              //     },
+              //     elevation: 5.0,
+              //     fillColor: kGrey,
+              //     child: Icon( bgmStatus?
+              //       Icons.music_note:Icons.music_off,
+              //       color:Colors.white,
+              //       size: 20.0,
+              //     ),
+              //     padding: EdgeInsets.all(15.0),
+              //     shape: RoundedRectangleBorder(
+              //       borderRadius: BorderRadius.circular(20),
+              //     ),
+              //   ),
+              // ),
               Expanded(child: SizedBox()),
               Text(
                 'Number of players',
@@ -135,7 +127,7 @@ class _GameConfigState extends State<GameConfig> {
                 //color: kBlue,
                 onPressed: () {
                   // print(numberOfPlayers);
-
+                  Navigator.pop(context);
                   Navigator.push(
                     context,
                     MaterialPageRoute(

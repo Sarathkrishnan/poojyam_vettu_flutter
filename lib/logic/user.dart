@@ -1,7 +1,6 @@
-import 'dart:collection';
+
 import 'package:pooyam_vettu/constants/level.dart';
-import 'package:pooyam_vettu/logic/block.dart';
-import 'package:flutter/material.dart';
+
 
 class User {
   List allblocks = List();

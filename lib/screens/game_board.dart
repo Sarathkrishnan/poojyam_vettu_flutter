@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:pooyam_vettu/componets/dot.dart';
 import 'package:pooyam_vettu/constants/constants.dart';
 import 'package:pooyam_vettu/constants/level.dart';
-import 'package:lottie/lottie.dart';
 import 'package:pooyam_vettu/logic/user.dart';
 import 'package:pooyam_vettu/screens/winner.dart';
 
@@ -25,20 +24,18 @@ class _GameBoardState extends State<GameBoard> {
     allblocks.removeWhere((element) => element[0] == x && element[1] == y);
     print('removed');
     if (allblocks.isEmpty) {
-      Future.delayed(Duration(seconds: 2), () {
-        print(widget.userNames);
-        print(userMark);
-
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => Winner(
-              userNames: widget.userNames,
-              userMark: userMark,
-            ),
+      print(widget.userNames);
+      print(userMark);
+      Navigator.pop(context);
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => Winner(
+            userNames: widget.userNames,
+            userMark: userMark,
           ),
-        );
-      });
+        ),
+      );
     }
   }
 
