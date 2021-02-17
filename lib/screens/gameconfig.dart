@@ -127,7 +127,7 @@ class _GameConfigState extends State<GameConfig> {
                 //color: kBlue,
                 onPressed: () {
                   // print(numberOfPlayers);
-                  Navigator.pop(context);
+                 // Navigator.pop(context);
                   Navigator.push(
                     context,
                     MaterialPageRoute(

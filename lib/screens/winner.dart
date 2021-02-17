@@ -1,3 +1,4 @@
+import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:pooyam_vettu/constants/constants.dart';
@@ -31,8 +32,16 @@ class _WinnerState extends State<Winner> {
     }
   }
 
+  void playMusic() {
+    AssetsAudioPlayer applause = AssetsAudioPlayer();
+    applause.open(
+      Audio("music/applause.mp3"),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+    playMusic();
     return Scaffold(
       backgroundColor: kDark,
       body: SafeArea(
@@ -83,7 +92,8 @@ class _WinnerState extends State<Winner> {
               splashColor: kGrey,
               color: kBlue,
               onPressed: () {
-                Navigator.popAndPushNamed(context, GameConfig.id);
+                Navigator.pop(context);
+                // Navigator.popAndPushNamed(context, GameConfig.id);
               },
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20)),

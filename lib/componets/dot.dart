@@ -16,8 +16,8 @@ class Dot extends StatelessWidget {
 
     return Container(
       alignment: Alignment.center,
-      width:deviceWidth*0.08,
-      height: deviceWidth*0.08,
+      width:deviceWidth*0.09,
+      height: deviceWidth*0.09,
       padding: EdgeInsets.all(2),
       margin: EdgeInsets.all(2),
       decoration: BoxDecoration(

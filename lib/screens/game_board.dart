@@ -4,6 +4,7 @@ import 'package:pooyam_vettu/constants/constants.dart';
 import 'package:pooyam_vettu/constants/level.dart';
 import 'package:pooyam_vettu/logic/user.dart';
 import 'package:pooyam_vettu/screens/winner.dart';
+import 'package:assets_audio_player/assets_audio_player.dart';
 
 class GameBoard extends StatefulWidget {
   static String id = 'game_board';
@@ -13,7 +14,20 @@ class GameBoard extends StatefulWidget {
   _GameBoardState createState() => _GameBoardState();
 }
 
+
 class _GameBoardState extends State<GameBoard> {
+  final assetsAudioPlayer = AssetsAudioPlayer();
+  final assetsAudioPlayerForBell = AssetsAudioPlayer();
+  
+  void play() {
+   
+    assetsAudioPlayer.play();
+  }
+  void playBell() {
+   
+    assetsAudioPlayerForBell.play();
+  }
+
   @override
   List allblocks = List();
   List removedBlocks = List();
@@ -53,6 +67,15 @@ class _GameBoardState extends State<GameBoard> {
   @override
   void initState() {
     super.initState();
+     assetsAudioPlayer.open(
+      Audio("music/touch.wav"),
+      autoStart: false,
+    );
+    assetsAudioPlayerForBell.open(
+      Audio("music/bell.wav"),
+      autoStart: false,
+
+    );
     for (var x = 0; x < level; x++) {
       for (var y = 0; y <= x; y++) {
         allblocks.add([x, y]);
@@ -61,6 +84,7 @@ class _GameBoardState extends State<GameBoard> {
     for (var i = 0; i < widget.userNames.length; i++) {
       userMark.add(0);
     }
+    
   }
 
   Widget build(BuildContext context) {
@@ -83,11 +107,16 @@ class _GameBoardState extends State<GameBoard> {
                         for (var j = 0; j <= i; j++)
                           GestureDetector(
                             onTap: () {
+                              play();
                               if (isElementPresent(i, j)) {
+                               
                                 removeBlock(i, j);
                                 user.addBlock(i, j);
-
-                                userMark[currentUser] += user.getMark();
+                                int mark=user.getMark();
+                                if (mark>0) {
+                                  playBell();
+                                }
+                                userMark[currentUser] += mark;
                                 user.mark = 0;
                                 setState(() {
                                   if (currentUser <
@@ -98,6 +127,7 @@ class _GameBoardState extends State<GameBoard> {
                                   }
                                 });
                               }
+
                               // print(currentUser);
                             },
                             child: Dot(

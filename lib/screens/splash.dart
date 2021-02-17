@@ -42,7 +42,10 @@ class _SplashScreenState extends State<SplashScreen> {
                 color: Colors.black12,
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Image.asset('images/logo.png'),
+                  child: Image.asset('images/logo.png',
+                  height: 150,
+                  width: 150,
+                  ),
                 ),
               ),
               Text("The Dot Game",
